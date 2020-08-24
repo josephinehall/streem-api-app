@@ -15,7 +15,6 @@ class ResultsController < ApplicationController
   private
 
   def results_params
-    # whitelist params
     params.permit(:query, :before, :after, :interval)
   end
 
