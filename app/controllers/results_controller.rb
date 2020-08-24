@@ -2,9 +2,13 @@ class ResultsController < ApplicationController
 
   # GET /results
   def index
-    if results_params.permitted?
-      @results = Result.create!(prepare_attributes(results_params))
-      json_response(@results)  
+    search = Search.new.(results_params)
+    if search.successful? && search.results
+      json_response(search.results)
+    else
+      json_response({
+        error: "Sorry! We couldn't find any results."
+      })
     end
   end
 
