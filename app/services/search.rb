@@ -28,7 +28,6 @@ class Search
   rescue Elasticsearch::Transport::Transport::Errors::BadRequest,
          Elasticsearch::Transport::Transport::Errors::ServiceUnavailable,
          Elasticsearch::Transport::Transport::Errors::NotFound => e
-    exception_notifier.notify(e)
     raise e
   end
 end
