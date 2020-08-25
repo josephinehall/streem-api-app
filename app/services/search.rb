@@ -7,10 +7,6 @@ class Search
 
   expose :results
 
-  def initialize
-    # set up the object
-  end
-
   def call(attributes)
     search = search_definition(prepare(attributes))
     @results = find_results(search)
