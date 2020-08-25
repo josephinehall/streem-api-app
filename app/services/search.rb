@@ -10,17 +10,21 @@ class Search
   end
 
   def call(attributes)
-    search_definition = prepare(attributes)
     @results = find_results(search_definition)
+    search = search_definition(prepare(attributes))
   end
 
   private
 
   def prepare(attributes)
-    {
-      index: ENV['ELASTICSEARCH_INDEX_NAME'],
-      q: attributes[:query]
-    }
+    attributes.merge(
+      before: parse(attributes[:before]),
+      after: parse(attributes[:after])
+      ).to_h.symbolize_keys
+  end
+
+  def parse(timestamp)
+    timestamp ? DateTime.strptime(timestamp,'%Q') : nil
   end
 
   def find_results(search_definition)

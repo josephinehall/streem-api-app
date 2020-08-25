@@ -17,15 +17,4 @@ class ResultsController < ApplicationController
   def results_params
     params.permit(:query, :before, :after, :interval)
   end
-
-  def parse(timestamp)
-    DateTime.strptime(timestamp,'%s')
-  end
-
-  def prepare_attributes(attributes)
-    attributes.merge(
-      before: parse(attributes[:before]),
-      after: parse(attributes[:after])
-      )
-  end
 end
