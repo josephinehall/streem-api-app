@@ -12,8 +12,10 @@ class Search
   end
 
   def call(attributes)
-    @results = find_results(search_definition)
     search = search_definition(prepare(attributes))
+    @results = find_results(search)
+  rescue Faraday::ConnectionFailed => e
+    raise e
   end
 
   private
@@ -29,8 +31,6 @@ class Search
     timestamp ? DateTime.strptime(timestamp,'%Q') : nil
   end
 
-  def find_results(search_definition)
-    SearchClient.search(search_definition)
   def search_definition(options = {})
     search do
       query do
@@ -65,6 +65,12 @@ class Search
       end
     end
   end
+
+  def find_results(search)
+    SearchClient.search(
+      index: ENV['ELASTICSEARCH_INDEX_NAME'],
+      body: search
+      )
   rescue Elasticsearch::Transport::Transport::Errors::BadRequest,
          Elasticsearch::Transport::Transport::Errors::ServiceUnavailable,
          Elasticsearch::Transport::Transport::Errors::NotFound => e
