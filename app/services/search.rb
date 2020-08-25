@@ -24,6 +24,7 @@ class Search
   end
 
   def parse(timestamp)
+    # Timestamps are in milliseconds since Epoch time
     timestamp ? DateTime.strptime(timestamp,'%Q') : nil
   end
 
