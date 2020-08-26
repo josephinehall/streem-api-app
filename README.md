@@ -16,7 +16,7 @@ curl \
     -G \
     --data-urlencode "query=scott morrison" \
     --data-urlencode "before=1567209600000" \
-    --data-urlencode "before=1564617600000" \
+    --data-urlencode "after=1554037199999" \
     --data-urlencode "interval=1d" \
     http://localhost:3000/results
 ```
