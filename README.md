@@ -1,4 +1,4 @@
-# README
+# Streem API app
 
 A Rails API for returning data from an ElasticSearch index.
 
